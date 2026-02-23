@@ -10,3 +10,18 @@ let jobs = [
 ];
 
 let activeView = 'all';
+
+function renderJobs() {
+    const listArea = document.getElementById('main-job-list');
+    let totalInt = 0;
+    let totalRej = 0;
+    
+    for (let i = 0; i < jobs.length; i++) {
+        if (jobs[i].status === 'interview') totalInt++;
+        if (jobs[i].status === 'rejected') totalRej++;
+    }
+    document.getElementById('stats-total').innerText = jobs.length;
+    document.getElementById('stats-interview').innerText = totalInt;
+    document.getElementById('stats-rejected').innerText = totalRej;
+}
+renderJobs();
