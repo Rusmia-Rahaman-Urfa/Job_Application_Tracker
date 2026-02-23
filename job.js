@@ -13,15 +13,21 @@ let activeView = 'all';
 
 function renderJobs() {
     const listArea = document.getElementById('main-job-list');
-    let totalInt = 0;
-    let totalRej = 0;
-    
-    for (let i = 0; i < jobs.length; i++) {
-        if (jobs[i].status === 'interview') totalInt++;
-        if (jobs[i].status === 'rejected') totalRej++;
+    const filtered = jobs.filter(item => {
+        if (activeView === 'all') return true;
+        return item.status === activeView;
+    });
+
+    document.getElementById('display-count').innerText = filtered.length;
+    listArea.innerHTML = '';
+
+    if (filtered.length === 0) {
+        listArea.innerHTML = `
+            <div class="flex flex-col items-center justify-center py-20 bg-white rounded-xl border border-gray-100 shadow-sm">
+                <img src="file.jpeg" alt="No jobs available" class="w-16 h-16 opacity-70">
+                <h3 class="text-xl font-bold text-slate-700">No jobs available</h3>
+                <p class="text-gray-400">Check back soon for new job opportunities</p>
+            </div>`;
+        return;
     }
-    document.getElementById('stats-total').innerText = jobs.length;
-    document.getElementById('stats-interview').innerText = totalInt;
-    document.getElementById('stats-rejected').innerText = totalRej;
 }
-renderJobs();
