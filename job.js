@@ -13,12 +13,24 @@ let activeView = 'all';
 
 function renderJobs() {
     const listArea = document.getElementById('main-job-list');
+    let totalInt = 0;
+    let totalRej = 0;
+    
+    for (let i = 0; i < jobs.length; i++) {
+        if (jobs[i].status === 'interview') totalInt++;
+        if (jobs[i].status === 'rejected') totalRej++;
+    }
+
     const filtered = jobs.filter(item => {
         if (activeView === 'all') return true;
         return item.status === activeView;
     });
 
+    document.getElementById('stats-total').innerText = jobs.length;
+    document.getElementById('stats-interview').innerText = totalInt;
+    document.getElementById('stats-rejected').innerText = totalRej;
     document.getElementById('display-count').innerText = filtered.length;
+
     listArea.innerHTML = '';
 
     if (filtered.length === 0) {
@@ -52,7 +64,9 @@ function renderJobs() {
                 </button>
             </div>
             <div class="flex gap-4 text-[11px] font-semibold text-gray-400 uppercase mb-4">
-                <span>${item.location}</span> • <span>${item.type}</span> • <span>${item.salary}</span>
+                <span>${item.location}</span> • 
+                <span>${item.type}</span> • 
+                <span>${item.salary}</span> • 
             </div>
             <div class="inline-block px-3 py-1 rounded text-[10px] font-black uppercase mb-4 ${labelColor}">
                 ${item.status === 'none' ? 'NOT APPLIED' : item.status}
@@ -61,7 +75,8 @@ function renderJobs() {
             <div class="flex items-center gap-3">
                 <button onclick="modifyStatus(${item.id}, 'interview')" class="px-4 py-2 border border-emerald-500 text-emerald-600 text-xs font-bold rounded hover:bg-emerald-500 hover:text-white transition-all">INTERVIEW</button>
                 <button onclick="modifyStatus(${item.id}, 'rejected')" class="px-4 py-2 border border-red-400 text-red-500 text-xs font-bold rounded hover:bg-red-400 hover:text-white transition-all">REJECTED</button>
-            </div>`;
+            </div>
+        `;
         listArea.appendChild(entry);
     });
 }
@@ -89,12 +104,15 @@ function removeEntry(targetId) {
 
 function changeCategory(mode, element) {
     activeView = mode;
-    const allTabs = document.getElementsByClassName('tab');
-    for (let t = 0; t < allTabs.length; t++) {
-        allTabs[t].classList.remove('tab-active');
-    }
-    element.classList.add('tab-active');
+    const allTabs = document.querySelectorAll('.tab-btn');
+    
+    allTabs.forEach(tab => {
+        tab.classList.remove('bg-blue-600', 'text-white');
+        tab.classList.add('text-slate-500');
+    });
+    element.classList.remove('text-slate-500');
+    element.classList.add('bg-blue-600', 'text-white');
+    
     renderJobs();
 }
 
-renderJobs();
