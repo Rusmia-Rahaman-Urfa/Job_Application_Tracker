@@ -86,3 +86,15 @@ function removeEntry(targetId) {
     jobs = freshList;
     renderJobs();
 }
+
+function changeCategory(mode, element) {
+    activeView = mode;
+    const allTabs = document.getElementsByClassName('tab');
+    for (let t = 0; t < allTabs.length; t++) {
+        allTabs[t].classList.remove('tab-active');
+    }
+    element.classList.add('tab-active');
+    renderJobs();
+}
+
+renderJobs();
