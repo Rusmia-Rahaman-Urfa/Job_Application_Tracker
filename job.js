@@ -75,3 +75,14 @@ function modifyStatus(targetId, nextStatus) {
     }
     renderJobs();
 }
+
+function removeEntry(targetId) {
+    const freshList = [];
+    for (let k = 0; k < jobs.length; k++) {
+        if (jobs[k].id !== targetId) {
+            freshList.push(jobs[k]);
+        }
+    }
+    jobs = freshList;
+    renderJobs();
+}
