@@ -25,21 +25,26 @@
             </div>
         </div>
     </header>
-
     <main class="max-w-5xl mx-auto">
-        <div class="flex items-center justify-between mb-6">
-            <h3 class="text-lg font-semibold text-slate-800">Available Jobs</h3>
-            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-bold">
-                <span id="display-count">0</span> Jobs
-            </span>
+    <div class="flex items-center justify-between mb-6">
+        <h3 class="text-xl font-bold text-slate-800">Available Jobs</h3>
+        <span class="bg-blue-50 text-blue-600 px-4 py-1.5 rounded-full text-xs font-bold border border-blue-100">
+            <span id="display-count">0</span> Jobs
+        </span>
+    </div>
+
+    <div class="inline-flex p-1 bg-white border border-gray-200 rounded-lg mb-10 overflow-hidden">
+        <button class="tab-btn px-8 py-2 text-sm font-medium rounded-md transition-all bg-blue-600 text-white" 
+                onclick="changeCategory('all', this)">All</button>
+        <button class="tab-btn px-8 py-2 text-sm font-medium rounded-md transition-all text-slate-500 hover:text-slate-700" 
+                onclick="changeCategory('interview', this)">Interview</button>
+        <button class="tab-btn px-8 py-2 text-sm font-medium rounded-md transition-all text-slate-500 hover:text-slate-700" 
+                onclick="changeCategory('rejected', this)">Rejected</button>
+    </div>
+
+    <div id="main-job-list" class="grid gap-6">
         </div>
-        <div role="tablist" class="tabs tabs-lifted mb-10">
-            <a role="tab" class="tab tab-active" onclick="changeCategory('all', this)">All</a>
-            <a role="tab" class="tab" onclick="changeCategory('interview', this)">Interview</a>
-            <a role="tab" class="tab" onclick="changeCategory('rejected', this)">Rejected</a>
-        </div>
-        <div id="main-job-list" class="grid gap-5"></div>
-    </main>
+</main>
 
     <script src="job.js"></script>
 </body>
