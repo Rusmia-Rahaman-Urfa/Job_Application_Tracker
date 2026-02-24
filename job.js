@@ -30,4 +30,38 @@ function renderJobs() {
             </div>`;
         return;
     }
+
+    filtered.forEach(item => {
+        const entry = document.createElement('div');
+        entry.className = "bg-white p-6 rounded-lg border border-slate-200 shadow-sm hover:border-blue-300 transition-all";
+        
+        let labelColor = 'bg-slate-100 text-slate-600';
+        if (item.status === 'interview') labelColor = 'bg-emerald-100 text-emerald-700';
+        if (item.status === 'rejected') labelColor = 'bg-red-100 text-red-700';
+
+        entry.innerHTML = `
+            <div class="flex justify-between items-start">
+                <div>
+                    <h4 class="font-bold text-xl text-blue-900">${item.company}</h4>
+                    <p class="text-slate-500 mb-2">${item.position}</p>
+                </div>
+                <button onclick="removeEntry(${item.id})" class="p-2 text-gray-300 hover:text-red-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                </button>
+            </div>
+            <div class="flex gap-4 text-[11px] font-semibold text-gray-400 uppercase mb-4">
+                <span>${item.location}</span> • <span>${item.type}</span> • <span>${item.salary}</span>
+            </div>
+            <div class="inline-block px-3 py-1 rounded text-[10px] font-black uppercase mb-4 ${labelColor}">
+                ${item.status === 'none' ? 'NOT APPLIED' : item.status}
+            </div>
+            <p class="text-sm text-slate-600 leading-relaxed mb-6">${item.desc}</p>
+            <div class="flex items-center gap-3">
+                <button onclick="modifyStatus(${item.id}, 'interview')" class="px-4 py-2 border border-emerald-500 text-emerald-600 text-xs font-bold rounded hover:bg-emerald-500 hover:text-white transition-all">INTERVIEW</button>
+                <button onclick="modifyStatus(${item.id}, 'rejected')" class="px-4 py-2 border border-red-400 text-red-500 text-xs font-bold rounded hover:bg-red-400 hover:text-white transition-all">REJECTED</button>
+            </div>`;
+        listArea.appendChild(entry);
+    });
 }
