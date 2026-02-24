@@ -65,3 +65,13 @@ function renderJobs() {
         listArea.appendChild(entry);
     });
 }
+
+function modifyStatus(targetId, nextStatus) {
+    for (let j = 0; j < jobs.length; j++) {
+        if (jobs[j].id === targetId) {
+            jobs[j].status = nextStatus;
+            break;
+        }
+    }
+    renderJobs();
+}
